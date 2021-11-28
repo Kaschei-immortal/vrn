@@ -32,7 +32,7 @@ public class StorageAccountDAO extends JdbcDaoSupport {
         return list;
     }
 
-    public StorageAccountinfo findBankAccount(Long id) {
+    public StorageAccountinfo findStorageAccount(Long id) {
         // Select ba.Id, ba.Full_Name, ba.Balance From Bank_Account ba
         // Where ba.Id = ?
         String sql = StorageAccountMapper.BASE_SQL + " where storage.Id = ? ";

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Bank</title>
+    <title>USZN</title>
 </head>
 
 <body>
@@ -18,7 +18,7 @@
 <div th:if="${errorMessage!=null}"
      style="color:red;font-style:italic" th:utext="${errorMessage}">..</div>
 
-<form th:action="@{/sendMoney}" th:object="${sendMoneyForm}" method="POST">
+<form th:action="@{/setKabPage}" th:object="${sendMoneyForm}" method="POST">
     <table>
 
         <tr>

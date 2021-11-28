@@ -7,8 +7,8 @@ import com.storage.vrn.model.StorageAccountinfo;
 import org.springframework.jdbc.core.RowMapper;
 
 public class StorageAccountMapper implements RowMapper<StorageAccountinfo> {
-    public static final String BASE_SQL //
-            = "Select storage.Id, storage.Name, storage.Kab From STORAGE_ACCOUNT storage ";
+    public static final String BASE_SQL = "Select ID, NAME, KAB From STORAGE_ACCOUNT";
+
     @Override
     public StorageAccountinfo mapRow(ResultSet rs, int rowNum) throws SQLException {
         Long id = rs.getLong("Id");

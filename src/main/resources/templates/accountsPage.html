@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Bank</title>
+    <title>USZN</title>
 
     <style>
         th, td {
@@ -21,12 +21,12 @@
     <tr>
         <th>ID</th>
         <th>Full Name</th>
-        <th>Balance</th>
+        <th>Room</th>
     </tr>
     <tr th:each="accountInfo : ${accountInfos}">
         <td th:utext="${accountInfo.id}">..</td>
-        <td th:utext="${accountInfo.fullName}">..</td>
-        <td th:utext="${accountInfo.balance}">..</td>
+        <td th:utext="${accountInfo.name}">..</td>
+        <td th:utext="${accountInfo.kab}">..</td>
     </tr>
 
 </table>
