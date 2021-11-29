@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-//import com.storage.vrn.StorageTransactionException;
+import com.storage.vrn.exception.SetException;
 import com.storage.vrn.mapper.StorageAccountMapper;
 import com.storage.vrn.model.StorageAccountinfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
 @Repository
-//@Transactional
 public class StorageAccountDAO extends JdbcDaoSupport {
 
     @Autowired
@@ -22,7 +21,6 @@ public class StorageAccountDAO extends JdbcDaoSupport {
     }
 
     public List<StorageAccountinfo> getStorageAccounts() {
-        // Select ba.Id, ba.Full_Name, ba.Balance From Bank_Account ba
         String sql = StorageAccountMapper.BASE_SQL;
 
         Object[] params = new Object[] {};
@@ -33,9 +31,7 @@ public class StorageAccountDAO extends JdbcDaoSupport {
     }
 
     public StorageAccountinfo findStorageAccount(Long id) {
-        // Select ba.Id, ba.Full_Name, ba.Balance From Bank_Account ba
-        // Where ba.Id = ?
-        String sql = StorageAccountMapper.BASE_SQL + " where storage.Id = ? ";
+        String sql = StorageAccountMapper.BASE_SQL + " where Id = ? ";
 
         Object[] params = new Object[] { id };
         StorageAccountMapper mapper = new StorageAccountMapper();
@@ -47,29 +43,17 @@ public class StorageAccountDAO extends JdbcDaoSupport {
         }
     }
 
-//   // MANDATORY: Transaction must be created before.
-//   @Transactional(propagation = Propagation.MANDATORY)
-//   public void addAmount(Long id, double amount) throws StorageTransactionException {
-//       StorageAccountinfo accountInfo = this.findBankAccount(id);
-//       if (accountInfo == null) {
-//           throw new StorageTransactionException("Account not found " + id);
-//       }
-//       double newKab = accountInfo.getKab() + amount;
-//       if (accountInfo.getBalance() + amount < 0) {
-//           throw new BankTransactionException(
-//                   "The money in the account '" + id + "' is not enough (" + accountInfo.getBalance() + ")");
-//       }
-//       accountInfo.setBalance(newBalance);
-//       // Update to DB
-//       String sqlUpdate = "Update Bank_Account set Balance = ? where Id = ?";
-//       this.getJdbcTemplate().update(sqlUpdate, accountInfo.getBalance(), accountInfo.getId());
-//   }
-//
-//   // Do not catch BankTransactionException in this method.
-//   @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = BankTransactionException.class)
-//   public void sendMoney(Long fromAccountId, Long toAccountId, double amount) throws BankTransactionException {
-//
-//       addAmount(toAccountId, amount);
-//       addAmount(fromAccountId, -amount);
-//   }
+
+    public void addKab(Long id, Integer kab) throws SetException {
+        StorageAccountinfo accountInfo = this.findStorageAccount(id);
+        if (accountInfo == null) {
+            throw new SetException("Account not found " + id);
+        }
+        accountInfo.setKab(kab);
+
+        // Update to DB
+        String sqlUpdate = "Update storage_account set kab = ? where Id = ?";
+        this.getJdbcTemplate().update(sqlUpdate, accountInfo.getKab(), accountInfo.getId());
+    }
+
 }

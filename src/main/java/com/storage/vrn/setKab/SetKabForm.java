@@ -2,42 +2,32 @@ package com.storage.vrn.setKab;
 
 public class SetKabForm {
 
-    private Long fromAccountId;
-    private Long toAccountId;
-    private Double amount;
+    private Long AccountId;
+    private Integer kab;
 
     public SetKabForm() {
 
     }
 
-    public SetKabForm(Long fromAccountId, Long toAccountId, Double amount) {
-        this.fromAccountId = fromAccountId;
-        this.toAccountId = toAccountId;
-        this.amount = amount;
+    public SetKabForm(Long AccountId, Integer kab) {
+        this.AccountId = AccountId;
+        this.kab = kab;
     }
 
-    public Long getFromAccountId() {
-        return fromAccountId;
+    public Long getAccountId() {
+        return AccountId;
     }
 
-    public void setFromAccountId(Long fromAccountId) {
-        this.fromAccountId = fromAccountId;
+    public void setAccountId(Long AccountId) {
+        this.AccountId = AccountId;
     }
 
-    public Long getToAccountId() {
-        return toAccountId;
+    public Integer getKab() {
+        return kab;
     }
 
-    public void setToAccountId(Long toAccountId) {
-        this.toAccountId = toAccountId;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setKab(Integer kab) {
+        this.kab = kab;
     }
 
 }

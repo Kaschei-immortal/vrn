@@ -8,34 +8,30 @@
 <!-- Include _menu.html -->
 <th:block th:include="/_menu"></th:block>
 
-<h2>Send Money</h2>
+<h2>Set Kab</h2>
 <ul>
-    <li>1 - Tom</li>
-    <li>2 - Jerry</li>
-    <li>3 - Donald</li>
+    <li>1 - </li>
+    <li>2 - </li>
+    <li>3 - </li>
 </ul>
 
 <div th:if="${errorMessage!=null}"
      style="color:red;font-style:italic" th:utext="${errorMessage}">..</div>
 
-<form th:action="@{/setKabPage}" th:object="${sendMoneyForm}" method="POST">
+<form th:action="@{/setKab}" th:object="${setKabForm}" method="POST">
     <table>
 
         <tr>
-            <td>From Bank Account Id</td>
-            <td><input type="text" th:field="*{fromAccountId}"/></td>
+            <td>From Id</td>
+            <td><input type="text" th:field="*{AccountId}"/></td>
         </tr>
         <tr>
-            <td>To Bank Account Id</td>
-            <td><input type="text" th:field="*{toAccountId}"/></td>
-        </tr>
-        <tr>
-            <td>Amount</td>
-            <td><input type="text" th:field="*{amount}" /></td>
+            <td>Change room</td>
+            <td><input type="text" th:field="*{kab}" /></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><input type="submit" value="Send"/></td>
+            <td><input type="submit" value="Set"/></td>
         </tr>
     </table>
 </form>

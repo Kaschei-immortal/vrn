@@ -28,28 +28,35 @@ public class MainController {
         return "accountsPage";
     }
 
-    @RequestMapping(value = "/setKabPage", method = RequestMethod.GET)
-    public String viewSetKabPage(Model model) {
+    @RequestMapping(value = "/setKab", method = RequestMethod.GET)
+    public String viewKabPage(Model model) {
+        StorageAccountinfo s = storageAccountDAO.findStorageAccount(1l);
 
-        SendMoneyForm form = new SendMoneyForm(1L, 2L, 700d);
+        SetKabForm form = new SetKabForm(s.getId(), s.getKab());
 
-        model.addAttribute("sendMoneyForm", form);
+        model.addAttribute("setKabForm", form);
 
-        return "sendMoneyPage";
+        return "setKabPage";
     }
 
-    @RequestMapping(value = "/sendMoney", method = RequestMethod.POST)
-    public String processSendMoney(Model model, SendMoneyForm sendMoneyForm) {
+    @RequestMapping(value = "/setKab", method = RequestMethod.POST)
+    public String processSetKab(Model model, SetKabForm setKabForm) {
+        try {
+            StorageAccountinfo s = storageAccountDAO.findStorageAccount(1l);
+            setKabForm.setAccountId(s.getId());
+            setKabForm.setKab(s.getKab());
+        } catch (NullPointerException e) {
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "/setKabPage";
+        }
 
-        System.out.println("Send Money::" + sendMoneyForm.getAmount());
+        System.out.println("Set Kab::" + setKabForm.getKab());
 
         try {
-            bankAccountDAO.sendMoney(sendMoneyForm.getFromAccountId(), //
-                    sendMoneyForm.getToAccountId(), //
-                    sendMoneyForm.getAmount());
-        } catch (BankTransactionException e) {
+            storageAccountDAO.addKab(setKabForm.getAccountId(),setKabForm.getKab());
+        } catch (SetException e) {
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
-            return "/sendMoneyPage";
+            return "/setKabPage";
         }
         return "redirect:/";
     }
