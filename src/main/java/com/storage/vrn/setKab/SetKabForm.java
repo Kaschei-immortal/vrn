@@ -2,7 +2,7 @@ package com.storage.vrn.setKab;
 
 public class SetKabForm {
 
-    private Long AccountId;
+    private Long accountId;
     private Integer kab;
 
     public SetKabForm() {
@@ -10,16 +10,16 @@ public class SetKabForm {
     }
 
     public SetKabForm(Long AccountId, Integer kab) {
-        this.AccountId = AccountId;
+        this.accountId = AccountId;
         this.kab = kab;
     }
 
     public Long getAccountId() {
-        return AccountId;
+        return accountId;
     }
 
-    public void setAccountId(Long AccountId) {
-        this.AccountId = AccountId;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
     public Integer getKab() {

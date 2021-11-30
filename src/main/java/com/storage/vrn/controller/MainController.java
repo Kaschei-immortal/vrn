@@ -41,14 +41,6 @@ public class MainController {
 
     @RequestMapping(value = "/setKab", method = RequestMethod.POST)
     public String processSetKab(Model model, SetKabForm setKabForm) {
-        try {
-            StorageAccountinfo s = storageAccountDAO.findStorageAccount(1l);
-            setKabForm.setAccountId(s.getId());
-            setKabForm.setKab(s.getKab());
-        } catch (NullPointerException e) {
-            model.addAttribute("errorMessage", "Error: " + e.getMessage());
-            return "/setKabPage";
-        }
 
         System.out.println("Set Kab::" + setKabForm.getKab());
 
