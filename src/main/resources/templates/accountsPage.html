@@ -22,11 +22,15 @@
         <th>ID</th>
         <th>Full Name</th>
         <th>Room</th>
+        <th>Login</th>
+        <th>Password</th>
     </tr>
     <tr th:each="accountInfo : ${accountInfos}">
         <td th:utext="${accountInfo.id}">..</td>
         <td th:utext="${accountInfo.name}">..</td>
         <td th:utext="${accountInfo.kab}">..</td>
+        <td th:utext="${accountInfo.login}">..</td>
+        <td th:utext="${accountInfo.pass}">..</td>
     </tr>
 
 </table>

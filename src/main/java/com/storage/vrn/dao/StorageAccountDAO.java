@@ -56,4 +56,19 @@ public class StorageAccountDAO extends JdbcDaoSupport {
         this.getJdbcTemplate().update(sqlUpdate, accountInfo.getKab(), accountInfo.getId());
     }
 
+    public void addPass(Long id, String login, String pass) throws SetException {
+        StorageAccountinfo accountInfo = this.findStorageAccount(id);
+        if (accountInfo == null) {
+            throw new SetException("Account not found " + id);
+        }
+        accountInfo.setLogin(login);
+        accountInfo.setPass(pass);
+
+        // Update to DB
+        String sqlUpdate = "Update storage_account set login = ?, set password = ? where Id = ?";
+        this.getJdbcTemplate().update(sqlUpdate, accountInfo.getLogin(), accountInfo.getPass(), accountInfo.getId());
+       // String sqlUpdate1 = "Update storage_account set password = ? where Id = ?";
+       // this.getJdbcTemplate().update(sqlUpdate1, accountInfo.getPass(), accountInfo.getId());
+    }
+
 }

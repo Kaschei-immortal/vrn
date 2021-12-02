@@ -17,7 +17,6 @@ public class SetKabForm {
     public Long getAccountId() {
         return accountId;
     }
-
     public void setAccountId(Long accountId) {
         this.accountId = accountId;
     }
@@ -25,7 +24,6 @@ public class SetKabForm {
     public Integer getKab() {
         return kab;
     }
-
     public void setKab(Integer kab) {
         this.kab = kab;
     }

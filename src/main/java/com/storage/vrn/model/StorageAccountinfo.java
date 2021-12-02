@@ -4,14 +4,29 @@ public class StorageAccountinfo {
     private Long id;
     private String name;
     private Integer kab;
-    private String dolzhn;
-    private String naprav;
+    private String login;
+    private String pass;
 
     public StorageAccountinfo(Long id, String name, Integer kab) {
         super();
         this.id = id;
         this.name = name;
         this.kab = kab;
+    }
+    public StorageAccountinfo(Long id, String name, Integer kab, String login, String pass) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.kab = kab;
+        this.login = login;
+        this.pass = pass;
+    }
+    public StorageAccountinfo(Long id, String name, String login, String pass) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.login = login;
+        this.pass = pass;
     }
 
     public Long getId() {
@@ -34,4 +49,10 @@ public class StorageAccountinfo {
     public void setKab(Integer kab) {
         this.kab = kab;
     }
+
+    public String getLogin() { return login; }
+    public  void setLogin(String login) { this.login = login; }
+
+    public String getPass() { return login; }
+    public void setPass(String pass) { this.pass = pass; }
 }

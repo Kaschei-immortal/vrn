@@ -6,6 +6,7 @@ import java.util.List;
 import com.storage.vrn.dao.StorageAccountDAO;
 import com.storage.vrn.exception.SetException;
 import com.storage.vrn.setKab.SetKabForm;
+import com.storage.vrn.setPass.SetPassForm;
 import com.storage.vrn.model.StorageAccountinfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,4 +54,29 @@ public class MainController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/setPass", method = RequestMethod.GET)
+    public String viewPassPage(Model model) {
+        StorageAccountinfo s = storageAccountDAO.findStorageAccount(1l);
+
+        SetPassForm form = new SetPassForm(s.getId(), s.getLogin(), s.getPass());
+
+        model.addAttribute("setPassForm", form);
+
+        return "setPassPage";
+    }
+
+    @RequestMapping(value = "/setPass", method = RequestMethod.POST)
+    public String processSetPass(Model model, SetPassForm setPassForm) {
+
+        System.out.println("Set Login::" + setPassForm.getLogin());
+        System.out.println("Set Pass::" + setPassForm.getPass());
+
+        try {
+            storageAccountDAO.addPass(setPassForm.getAccountId(),setPassForm.getLogin(),setPassForm.getPass());
+        } catch (SetException e) {
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "/setPassPage";
+        }
+        return "redirect:/";
+    }
 }
