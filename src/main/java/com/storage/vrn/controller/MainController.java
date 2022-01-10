@@ -1,6 +1,5 @@
 package com.storage.vrn.controller;
 
-
 import java.util.List;
 
 import com.storage.vrn.dao.StorageAccountDAO;
@@ -21,52 +20,39 @@ public class MainController {
     private StorageAccountDAO storageAccountDAO;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String showStorageAccounts(Model model) {
+    public List<StorageAccountinfo> showStorageAccounts() {
         List<StorageAccountinfo> list = storageAccountDAO.getStorageAccounts();
-
-        model.addAttribute("accountInfos", list);
-
-        return "accountsPage";
+        return list;
     }
 
     @RequestMapping(value = "/setKab", method = RequestMethod.GET)
-    public String viewKabPage(Model model) {
+    public SetKabForm viewKabPage() {
         StorageAccountinfo s = storageAccountDAO.findStorageAccount(1l);
-
         SetKabForm form = new SetKabForm(s.getId(), s.getKab());
-
-        model.addAttribute("setKabForm", form);
-
-        return "setKabPage";
+        return form;
     }
 
     @RequestMapping(value = "/setKab", method = RequestMethod.POST)
-    public String processSetKab(Model model, SetKabForm setKabForm) {
+    public void processSetKab(SetKabForm setKabForm) {
 
         System.out.println("Set Kab::" + setKabForm.getKab());
 
         try {
             storageAccountDAO.addKab(setKabForm.getAccountId(),setKabForm.getKab());
         } catch (SetException e) {
-            model.addAttribute("errorMessage", "Error: " + e.getMessage());
-            return "/setKabPage";
+            throw new RuntimeException("что-то пошло не так");
         }
-        return "redirect:/";
     }
 
     @RequestMapping(value = "/setPass", method = RequestMethod.GET)
-    public String viewPassPage(Model model) {
+    public SetPassForm viewPassPage() {
         StorageAccountinfo s = storageAccountDAO.findStorageAccount(1l);
 
-        SetPassForm form = new SetPassForm(s.getId(), s.getLogin(), s.getPass());
-
-        model.addAttribute("setPassForm", form);
-
-        return "setPassPage";
+        return new SetPassForm(s.getId(), s.getLogin(), s.getPass());
     }
 
     @RequestMapping(value = "/setPass", method = RequestMethod.POST)
-    public String processSetPass(Model model, SetPassForm setPassForm) {
+    public void processSetPass(SetPassForm setPassForm) {
 
         System.out.println("Set Login::" + setPassForm.getLogin());
         System.out.println("Set Pass::" + setPassForm.getPass());
@@ -74,9 +60,7 @@ public class MainController {
         try {
             storageAccountDAO.addPass(setPassForm.getAccountId(),setPassForm.getLogin(),setPassForm.getPass());
         } catch (SetException e) {
-            model.addAttribute("errorMessage", "Error: " + e.getMessage());
-            return "/setPassPage";
+            throw new RuntimeException("что-то пошло не так");
         }
-        return "redirect:/";
     }
 }
