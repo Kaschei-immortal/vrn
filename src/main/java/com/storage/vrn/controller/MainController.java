@@ -8,12 +8,12 @@ import com.storage.vrn.setKab.SetKabForm;
 import com.storage.vrn.setPass.SetPassForm;
 import com.storage.vrn.model.StorageAccountinfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@Controller
+@RestController
 public class MainController {
 
     @Autowired
