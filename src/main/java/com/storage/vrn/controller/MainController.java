@@ -8,6 +8,7 @@ import com.storage.vrn.setKab.SetKabForm;
 import com.storage.vrn.setPass.SetPassForm;
 import com.storage.vrn.model.StorageAccountinfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,8 +33,8 @@ public class MainController {
         return form;
     }
 
-    @RequestMapping(value = "/setKab", method = RequestMethod.POST)
-    public void processSetKab(SetKabForm setKabForm) {
+    @RequestMapping(value = "/setKab", method = RequestMethod.PUT)
+    public void processSetKab(@RequestBody SetKabForm setKabForm) {
 
         System.out.println("Set Kab::" + setKabForm.getKab());
 
@@ -51,7 +52,7 @@ public class MainController {
         return new SetPassForm(s.getId(), s.getLogin(), s.getPass());
     }
 
-    @RequestMapping(value = "/setPass", method = RequestMethod.POST)
+    @RequestMapping(value = "/setPass", method = RequestMethod.PUT)
     public void processSetPass(SetPassForm setPassForm) {
 
         System.out.println("Set Login::" + setPassForm.getLogin());
