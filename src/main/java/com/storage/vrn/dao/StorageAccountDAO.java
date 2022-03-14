@@ -65,10 +65,10 @@ public class StorageAccountDAO extends JdbcDaoSupport {
         accountInfo.setPass(pass);
 
         // Update to DB
-        String sqlUpdate = "Update storage_account set login = ?, set password = ? where Id = ?";
-        this.getJdbcTemplate().update(sqlUpdate, accountInfo.getLogin(), accountInfo.getPass(), accountInfo.getId());
-       // String sqlUpdate1 = "Update storage_account set password = ? where Id = ?";
-       // this.getJdbcTemplate().update(sqlUpdate1, accountInfo.getPass(), accountInfo.getId());
+        String sqlUpdate = "Update storage_account set login = ? where Id = ?";
+        this.getJdbcTemplate().update(sqlUpdate, accountInfo.getLogin(), accountInfo.getId());
+        String sqlUpdate1 = "Update storage_account set password = ? where Id = ?";
+        this.getJdbcTemplate().update(sqlUpdate1, accountInfo.getPass(), accountInfo.getId());
     }
 
 }
