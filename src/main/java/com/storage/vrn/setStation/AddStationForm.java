@@ -1,36 +1,33 @@
-package com.storage.vrn.model;
+package com.storage.vrn.setStation;
 
-public class StorageComputerinfo {
-    private Long id;
+public class AddStationForm {
+
     private Integer computer;
     private Integer monitor;
     private Integer printer;
     private Boolean mfp;
     private Integer ups;
-    private Long idacc;
+    private Long idAccount;
 
-    public StorageComputerinfo(Long id, Integer computer, Long idacc) {
-        super();
-        this.id = id;
-        this.computer = computer;
-        this.idacc = idacc;
+    public AddStationForm() {
+
     }
-    public StorageComputerinfo(Long id, Integer computer, Integer monitor, Integer printer, Boolean mfp, Integer ups, Long idacc) {
-        super();
-        this.id = id;
+
+    public AddStationForm(Integer computer, Integer monitor, Integer printer, Boolean mfp, Integer ups) {
         this.computer = computer;
         this.monitor = monitor;
         this.printer = printer;
-        this.mfp = mfp;
+        this.mfp =mfp;
         this.ups = ups;
-        this.idacc = idacc;
     }
 
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
+    public AddStationForm(Integer computer, Integer monitor, Integer printer, Boolean mfp, Integer ups, Long idAccount) {
+        this.computer = computer;
+        this.monitor = monitor;
+        this.printer = printer;
+        this.mfp =mfp;
+        this.ups = ups;
+        this.idAccount = idAccount;
     }
 
     public Integer getComputer() {
@@ -68,10 +65,11 @@ public class StorageComputerinfo {
         this.ups = ups;
     }
 
-    public Long getIdacc() {
-        return idacc;
+    public Long getIdAccount() {
+        return idAccount;
     }
-    public void setIdacc(Long idacc) {
-        this.idacc = idacc;
+    public void setIdAccount(Long idAccount) {
+        this.idAccount = idAccount;
     }
+
 }

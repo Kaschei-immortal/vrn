@@ -3,13 +3,13 @@ package com.storage.vrn.setStation;
 public class SetStationForm {
 
     private Long stationId;
-    private Integer idAccount;
+    private Long idAccount;
 
     public SetStationForm() {
 
     }
 
-    public SetStationForm(Long stationId, Integer idAccount) {
+    public SetStationForm(Long stationId, Long idAccount) {
         this.stationId = stationId;
         this.idAccount = idAccount;
     }
@@ -21,10 +21,10 @@ public class SetStationForm {
         this.stationId = stationId;
     }
 
-    public Integer getIdAccount() {
+    public Long getIdAccount() {
         return idAccount;
     }
-    public void setIdAccount(Integer idAccount) {
+    public void setIdAccount(Long idAccount) {
         this.idAccount = idAccount;
     }
 

@@ -17,7 +17,7 @@ public class StorageComputerMapper implements RowMapper<StorageComputerinfo> {
         Integer printer = rs.getInt("printer");
         Boolean mfp = rs.getBoolean("mfp");
         Integer ups = rs.getInt("ups");
-        Integer idacc = rs.getInt("idacc");
+        Long idacc = rs.getLong("idacc");
 
         return new StorageComputerinfo(id, computer, monitor, printer, mfp, ups, idacc);
     }

@@ -44,7 +44,7 @@ public class StorageAccountDAO extends JdbcDaoSupport {
     }
 
 
-    public void addKab(Long id, Integer kab) throws SetException {
+    public void editKab(Long id, Integer kab) throws SetException {
         StorageAccountinfo accountInfo = this.findStorageAccount(id);
         if (accountInfo == null) {
             throw new SetException("Account not found " + id);
@@ -56,7 +56,7 @@ public class StorageAccountDAO extends JdbcDaoSupport {
         this.getJdbcTemplate().update(sqlUpdate, accountInfo.getKab(), accountInfo.getId());
     }
 
-    public void addPass(Long id, String login, String pass) throws SetException {
+    public void editPass(Long id, String login, String pass) throws SetException {
         StorageAccountinfo accountInfo = this.findStorageAccount(id);
         if (accountInfo == null) {
             throw new SetException("Account not found " + id);
@@ -65,10 +65,14 @@ public class StorageAccountDAO extends JdbcDaoSupport {
         accountInfo.setPass(pass);
 
         // Update to DB
-        String sqlUpdate = "Update storage_account set login = ? where Id = ?";
-        this.getJdbcTemplate().update(sqlUpdate, accountInfo.getLogin(), accountInfo.getId());
-        String sqlUpdate1 = "Update storage_account set password = ? where Id = ?";
-        this.getJdbcTemplate().update(sqlUpdate1, accountInfo.getPass(), accountInfo.getId());
+        String sqlUpdate = "Update storage_account set login = ?, password = ? where Id = ?";
+        this.getJdbcTemplate().update(sqlUpdate, accountInfo.getLogin(), accountInfo.getPass(), accountInfo.getId());
+    }
+
+    public void addAccount(String name, Integer kab, String login, String pass) throws SetException {
+        // Add to DB new account
+        String sqlAdd = "Insert into storage_account (name, kab, login, password) values ('" + name + "', " + kab + ", '" + login + "', '" + pass + "')";
+        this.getJdbcTemplate().execute(sqlAdd);
     }
 
 }

@@ -43,7 +43,7 @@ public class StorageComputerDAO extends JdbcDaoSupport {
     }
 
 
-    public void addId(Long id, Integer idacc) throws SetException {
+    public void editId(Long id, Long idacc) throws SetException {
         StorageComputerinfo computerInfo = this.findStorageComputer(id);
         if (computerInfo == null) {
             throw new SetException("Work station not found " + id);
@@ -55,28 +55,26 @@ public class StorageComputerDAO extends JdbcDaoSupport {
         this.getJdbcTemplate().update(sqlUpdate, computerInfo.getIdacc(), computerInfo.getId());
     }
 
-    public void addInfo(Long id, Integer computer, Integer monitor, Integer printer, Boolean mfp, Integer ups) throws SetException {
+    public void editInfo(Long id, Integer computer, Integer monitor, Integer printer, Boolean mfp, Integer ups) throws SetException {
         StorageComputerinfo computerInfo = this.findStorageComputer(id);
         if (computerInfo == null) {
             throw new SetException("Work station not found " + id);
         }
         computerInfo.setComputer(computer);
         computerInfo.setMonitor(monitor);
-        if (printer != null) computerInfo.setPrinter(printer); else computerInfo.setPrinter(0);
+        computerInfo.setPrinter(printer);
         computerInfo.setMfp(mfp);
-        if (ups != null) computerInfo.setUps(ups); else computerInfo.setUps(0);
+        computerInfo.setUps(ups);
 
         // Update to DB
-        String sqlUpdate = "Update storage_work_station set computer = ? where Id = ?";
-        this.getJdbcTemplate().update(sqlUpdate, computerInfo.getComputer(), computerInfo.getId());
-        String sqlUpdate1 = "Update storage_work_station set monitor = ? where Id = ?";
-        this.getJdbcTemplate().update(sqlUpdate1, computerInfo.getMonitor(), computerInfo.getId());
-        String sqlUpdate2 = "Update storage_work_station set printer = ? where Id = ?";
-        this.getJdbcTemplate().update(sqlUpdate2, computerInfo.getPrinter(), computerInfo.getId());
-        String sqlUpdate3 = "Update storage_work_station set mfp = ? where Id = ?";
-        this.getJdbcTemplate().update(sqlUpdate3, computerInfo.getMfp(), computerInfo.getId());
-        String sqlUpdate4 = "Update storage_work_station set ups = ? where Id = ?";
-        this.getJdbcTemplate().update(sqlUpdate4, computerInfo.getUps(), computerInfo.getId());
+        String sqlUpdate = "Update storage_work_station set computer = ?, monitor = ?, printer = ?, mfp = ?, ups = ? where Id = ?";
+        this.getJdbcTemplate().update(sqlUpdate, computerInfo.getComputer(), computerInfo.getMonitor(), computerInfo.getPrinter(), computerInfo.getMfp(), computerInfo.getUps(), computerInfo.getId());
+    }
+
+    public void addStation(Integer computer, Integer monitor, Integer printer, Boolean mfp, Integer ups, Long idacc) throws SetException {
+        // Add to DB new work station
+        String sqlAdd = "Insert into storage_work_station (computer, monitor, printer, mfp, ups, idacc) values (" + computer + ", " + monitor + ", " + printer + ", " + mfp + ", " + ups + ", " + idacc + ")";
+        this.getJdbcTemplate().execute(sqlAdd);
     }
 
 }
