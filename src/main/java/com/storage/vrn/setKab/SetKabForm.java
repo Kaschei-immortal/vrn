@@ -3,10 +3,16 @@ package com.storage.vrn.setKab;
 public class SetKabForm {
 
     private Long accountId;
+    private String name;
     private Integer kab;
 
     public SetKabForm() {
 
+    }
+
+    public SetKabForm(Long AccountId, String name) {
+        this.accountId = AccountId;
+        this.name = name;
     }
 
     public SetKabForm(Long AccountId, Integer kab) {
@@ -19,6 +25,11 @@ public class SetKabForm {
     }
     public void setAccountId(Long accountId) {
         this.accountId = accountId;
+    }
+
+    public String getName() { return name; }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getKab() {

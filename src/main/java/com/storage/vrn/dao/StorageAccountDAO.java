@@ -43,6 +43,17 @@ public class StorageAccountDAO extends JdbcDaoSupport {
         }
     }
 
+    public void editName(Long id, String name) throws SetException {
+        StorageAccountinfo accountInfo = this.findStorageAccount(id);
+        if (accountInfo == null) {
+            throw new SetException("Account not found " + id);
+        }
+        accountInfo.setName(name);
+
+        // Update to DB
+        String sqlUpdate = "Update storage_account set name = ? where Id = ?";
+        this.getJdbcTemplate().update(sqlUpdate, accountInfo.getName(), accountInfo.getId());
+    }
 
     public void editKab(Long id, Integer kab) throws SetException {
         StorageAccountinfo accountInfo = this.findStorageAccount(id);
@@ -72,6 +83,11 @@ public class StorageAccountDAO extends JdbcDaoSupport {
     public void addAccount(String name, Integer kab, String login, String pass) throws SetException {
         // Add to DB new account
         String sqlAdd = "Insert into storage_account (name, kab, login, password) values ('" + name + "', " + kab + ", '" + login + "', '" + pass + "')";
+        this.getJdbcTemplate().execute(sqlAdd);
+    }
+    public void deleteKab(Long id) throws SetException {
+        // Delete from DB account
+        String sqlAdd = "DELETE from storage_account where Id = " + id;
         this.getJdbcTemplate().execute(sqlAdd);
     }
 

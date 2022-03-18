@@ -77,4 +77,10 @@ public class StorageComputerDAO extends JdbcDaoSupport {
         this.getJdbcTemplate().execute(sqlAdd);
     }
 
+    public void deleteStation(Long id) throws SetException {
+        // Delete from DB station
+        String sqlAdd = "DELETE from storage_work_station where Id = " + id;
+        this.getJdbcTemplate().execute(sqlAdd);
+    }
+
 }

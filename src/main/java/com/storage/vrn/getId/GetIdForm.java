@@ -2,21 +2,21 @@ package com.storage.vrn.getId;
 
 public class GetIdForm {
 
-    private Long accountId;
+    private Long Id;
 
     public GetIdForm() {
 
     }
 
-    public GetIdForm(Long AccountId) {
-        this.accountId = AccountId;
+    public GetIdForm(Long Id) {
+        this.Id = Id;
     }
 
-    public Long getAccountId() {
-        return accountId;
+    public Long getId() {
+        return Id;
     }
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
+    public void setId(Long Id) {
+        this.Id = Id;
     }
 
 }
