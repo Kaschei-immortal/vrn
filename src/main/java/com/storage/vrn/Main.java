@@ -1,3 +1,5 @@
+package com.storage.vrn;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Metamodel;
 import org.hibernate.query.Query;
@@ -9,6 +11,9 @@ import javax.persistence.metamodel.EntityType;
 
 import java.util.Map;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+@SpringBootApplication
 public class Main {
     private static final SessionFactory ourSessionFactory;
 

@@ -1,7 +1,7 @@
-package Entity;
+package com.storage.vrn.Entity;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "storage_account", schema = "public", catalog = "storage")
@@ -11,9 +11,11 @@ public class StorageAccountEntity {
     private Integer kab;
     private String login;
     private String password;
+    private List<StorageWorkStationEntity> storageWorkStationEntities;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
     public long getId() {
         return id;
     }
@@ -60,6 +62,16 @@ public class StorageAccountEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @OneToMany(mappedBy = "storageAccountEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    public List<StorageWorkStationEntity> getStorageWorkStationEntities() {
+        return storageWorkStationEntities;
+    }
+
+    public void setStorageWorkStationEntities(List<StorageWorkStationEntity> storageWorkStationEntities) {
+        this.storageWorkStationEntities = storageWorkStationEntities;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package Entity;
+package com.storage.vrn.Entity;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -12,9 +12,11 @@ public class StorageWorkStationEntity {
     private Integer printer;
     private Boolean mfp;
     private Integer ups;
+    private StorageAccountEntity storageAccountEntity;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
     public long getId() {
         return id;
     }
@@ -71,6 +73,17 @@ public class StorageWorkStationEntity {
 
     public void setUps(Integer ups) {
         this.ups = ups;
+    }
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "IDACC"/*, referencedColumnName = "id"*/)
+
+    public StorageAccountEntity getStorageAccountEntity() {
+        return this.storageAccountEntity;
+    }
+
+    public void setStorageAccountEntity(StorageAccountEntity storageAccountEntity) {
+        this.storageAccountEntity = storageAccountEntity;
     }
 
     @Override
