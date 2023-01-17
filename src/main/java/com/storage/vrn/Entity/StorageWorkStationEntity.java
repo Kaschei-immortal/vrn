@@ -7,12 +7,10 @@ import java.util.Objects;
 @Table(name = "storage_work_station", schema = "public", catalog = "storage")
 public class StorageWorkStationEntity {
     private long id;
-    private Integer computer;
-    private Integer monitor;
-    private Integer printer;
-    private Boolean mfp;
-    private Integer ups;
-    private StorageAccountEntity storageAccountEntity;
+    private String computer;
+    private String monitor;
+    private String printer;
+    private String ups;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,70 +18,44 @@ public class StorageWorkStationEntity {
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
 
     @Basic
     @Column(name = "computer")
-    public Integer getComputer() {
+    public String getComputer() {
         return computer;
     }
-
-    public void setComputer(Integer computer) {
+    public void setComputer(String computer) {
         this.computer = computer;
     }
 
     @Basic
     @Column(name = "monitor")
-    public Integer getMonitor() {
+    public String getMonitor() {
         return monitor;
     }
-
-    public void setMonitor(Integer monitor) {
+    public void setMonitor(String monitor) {
         this.monitor = monitor;
     }
 
     @Basic
     @Column(name = "printer")
-    public Integer getPrinter() {
+    public String getPrinter() {
         return printer;
     }
-
-    public void setPrinter(Integer printer) {
+    public void setPrinter(String printer) {
         this.printer = printer;
     }
 
     @Basic
-    @Column(name = "mfp")
-    public Boolean getMfp() {
-        return mfp;
-    }
-
-    public void setMfp(Boolean mfp) {
-        this.mfp = mfp;
-    }
-
-    @Basic
     @Column(name = "ups")
-    public Integer getUps() {
+    public String getUps() {
         return ups;
     }
-
-    public void setUps(Integer ups) {
+    public void setUps(String ups) {
         this.ups = ups;
-    }
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "IDACC"/*, referencedColumnName = "id"*/)
-
-    public StorageAccountEntity getStorageAccountEntity() {
-        return this.storageAccountEntity;
-    }
-
-    public void setStorageAccountEntity(StorageAccountEntity storageAccountEntity) {
-        this.storageAccountEntity = storageAccountEntity;
     }
 
     @Override
@@ -91,11 +63,11 @@ public class StorageWorkStationEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StorageWorkStationEntity that = (StorageWorkStationEntity) o;
-        return id == that.id && Objects.equals(computer, that.computer) && Objects.equals(monitor, that.monitor) && Objects.equals(printer, that.printer) && Objects.equals(mfp, that.mfp) && Objects.equals(ups, that.ups);
+        return id == that.id && Objects.equals(computer, that.computer) && Objects.equals(monitor, that.monitor) && Objects.equals(printer, that.printer) && Objects.equals(ups, that.ups);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, computer, monitor, printer, mfp, ups);
+        return Objects.hash(id, computer, monitor, printer, ups);
     }
 }

@@ -42,20 +42,7 @@ public class StorageComputerDAO extends JdbcDaoSupport {
         }
     }
 
-
-    public void editId(Long id, Long idacc) throws SetException {
-        StorageComputerinfo computerInfo = this.findStorageComputer(id);
-        if (computerInfo == null) {
-            throw new SetException("Work station not found " + id);
-        }
-        computerInfo.setIdacc(idacc);
-
-        // Update to DB
-        String sqlUpdate = "Update storage_work_station set idacc = ? where Id = ?";
-        this.getJdbcTemplate().update(sqlUpdate, computerInfo.getIdacc(), computerInfo.getId());
-    }
-
-    public void editInfo(Long id, Integer computer, Integer monitor, Integer printer, Boolean mfp, Integer ups) throws SetException {
+    public void setStation(Long id, String computer, String monitor, String printer, String ups) throws SetException {
         StorageComputerinfo computerInfo = this.findStorageComputer(id);
         if (computerInfo == null) {
             throw new SetException("Work station not found " + id);
@@ -63,17 +50,16 @@ public class StorageComputerDAO extends JdbcDaoSupport {
         computerInfo.setComputer(computer);
         computerInfo.setMonitor(monitor);
         computerInfo.setPrinter(printer);
-        computerInfo.setMfp(mfp);
         computerInfo.setUps(ups);
 
         // Update to DB
-        String sqlUpdate = "Update storage_work_station set computer = ?, monitor = ?, printer = ?, mfp = ?, ups = ? where Id = ?";
-        this.getJdbcTemplate().update(sqlUpdate, computerInfo.getComputer(), computerInfo.getMonitor(), computerInfo.getPrinter(), computerInfo.getMfp(), computerInfo.getUps(), computerInfo.getId());
+        String sqlUpdate = "Update storage_work_station set computer = ?, monitor = ?, printer = ?, ups = ? where Id = ?";
+        this.getJdbcTemplate().update(sqlUpdate, computerInfo.getComputer(), computerInfo.getMonitor(), computerInfo.getPrinter(), computerInfo.getUps(), computerInfo.getId());
     }
 
-    public void addStation(Integer computer, Integer monitor, Integer printer, Boolean mfp, Integer ups, Long idacc) throws SetException {
+    public void addStation(String computer, String monitor, String printer, String ups) throws SetException {
         // Add to DB new work station
-        String sqlAdd = "Insert into storage_work_station (computer, monitor, printer, mfp, ups, idacc) values (" + computer + ", " + monitor + ", " + printer + ", " + mfp + ", " + ups + ", " + idacc + ")";
+        String sqlAdd = "Insert into storage_work_station (computer, monitor, printer, ups) values ('" + computer + "', '" + monitor + "', '" + printer + "', '" + ups + "')";
         this.getJdbcTemplate().execute(sqlAdd);
     }
 

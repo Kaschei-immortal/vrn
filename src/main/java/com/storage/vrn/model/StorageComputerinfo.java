@@ -2,28 +2,18 @@ package com.storage.vrn.model;
 
 public class StorageComputerinfo {
     private Long id;
-    private Integer computer;
-    private Integer monitor;
-    private Integer printer;
-    private Boolean mfp;
-    private Integer ups;
-    private Long idacc;
+    private String computer;
+    private String monitor;
+    private String printer;
+    private String ups;
 
-    public StorageComputerinfo(Long id, Integer computer, Long idacc) {
-        super();
-        this.id = id;
-        this.computer = computer;
-        this.idacc = idacc;
-    }
-    public StorageComputerinfo(Long id, Integer computer, Integer monitor, Integer printer, Boolean mfp, Integer ups, Long idacc) {
+    public StorageComputerinfo(Long id, String computer, String monitor, String printer, String ups) {
         super();
         this.id = id;
         this.computer = computer;
         this.monitor = monitor;
         this.printer = printer;
-        this.mfp = mfp;
         this.ups = ups;
-        this.idacc = idacc;
     }
 
     public Long getId() {
@@ -33,45 +23,31 @@ public class StorageComputerinfo {
         this.id = id;
     }
 
-    public Integer getComputer() {
+    public String getComputer() {
         return computer;
     }
-    public void setComputer(Integer computer) {
+    public void setComputer(String computer) {
         this.computer = computer;
     }
 
-    public Integer getMonitor() {
+    public String getMonitor() {
         return monitor;
     }
-    public void setMonitor(Integer monitor) {
+    public void setMonitor(String monitor) {
         this.monitor = monitor;
     }
 
-    public Integer getPrinter() {
+    public String getPrinter() {
         return printer;
     }
-    public void setPrinter(Integer printer) {
+    public void setPrinter(String printer) {
         this.printer = printer;
     }
 
-    public Boolean getMfp() {
-        return mfp;
-    }
-    public void setMfp(Boolean mfp) {
-        this.mfp = mfp;
-    }
-
-    public Integer getUps() {
+    public String getUps() {
         return ups;
     }
-    public void setUps(Integer ups) {
+    public void setUps(String ups) {
         this.ups = ups;
-    }
-
-    public Long getIdacc() {
-        return idacc;
-    }
-    public void setIdacc(Long idacc) {
-        this.idacc = idacc;
     }
 }

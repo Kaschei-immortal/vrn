@@ -1,9 +1,7 @@
 package com.storage.vrn.dao;
 
 import java.util.List;
-
 import javax.sql.DataSource;
-
 import com.storage.vrn.exception.SetException;
 import com.storage.vrn.mapper.StorageAccountMapper;
 import com.storage.vrn.model.StorageAccountinfo;
@@ -43,50 +41,30 @@ public class StorageAccountDAO extends JdbcDaoSupport {
         }
     }
 
-    public void editName(Long id, String name) throws SetException {
+    public void editAccount(Long id, String name, String surname, String patronymic, String kab, String login, String pass) throws SetException {
         StorageAccountinfo accountInfo = this.findStorageAccount(id);
         if (accountInfo == null) {
             throw new SetException("Account not found " + id);
         }
         accountInfo.setName(name);
-
-        // Update to DB
-        String sqlUpdate = "Update storage_account set name = ? where Id = ?";
-        this.getJdbcTemplate().update(sqlUpdate, accountInfo.getName(), accountInfo.getId());
-    }
-
-    public void editKab(Long id, Integer kab) throws SetException {
-        StorageAccountinfo accountInfo = this.findStorageAccount(id);
-        if (accountInfo == null) {
-            throw new SetException("Account not found " + id);
-        }
+        accountInfo.setSurname(surname);
+        accountInfo.setPatronymic(patronymic);
         accountInfo.setKab(kab);
-
-        // Update to DB
-        String sqlUpdate = "Update storage_account set kab = ? where Id = ?";
-        this.getJdbcTemplate().update(sqlUpdate, accountInfo.getKab(), accountInfo.getId());
-    }
-
-    public void editPass(Long id, String login, String pass) throws SetException {
-        StorageAccountinfo accountInfo = this.findStorageAccount(id);
-        if (accountInfo == null) {
-            throw new SetException("Account not found " + id);
-        }
         accountInfo.setLogin(login);
         accountInfo.setPass(pass);
 
         // Update to DB
-        String sqlUpdate = "Update storage_account set login = ?, password = ? where Id = ?";
-        this.getJdbcTemplate().update(sqlUpdate, accountInfo.getLogin(), accountInfo.getPass(), accountInfo.getId());
+        String sqlUpdate = "Update storage_account set name = ?, set surname = ?, set patronymic = ?, set kab = ?, set login = ?, set pass = ? where Id = ?";
+        this.getJdbcTemplate().update(sqlUpdate, accountInfo.getName(), accountInfo.getSurname(), accountInfo.getPatronymic(), accountInfo.getKab(), accountInfo.getLogin(), accountInfo.getPass(), accountInfo.getId());
     }
 
-    public void addAccount(String name, Integer kab, String login, String pass) throws SetException {
+    public void addAccount(String name, String surname, String patronymic, String kab, String login, String pass) throws SetException {
         // Add to DB new account
-        String sqlAdd = "Insert into storage_account (name, kab, login, password) values ('" + name + "', " + kab + ", '" + login + "', '" + pass + "')";
+        String sqlAdd = "Insert into storage_account (name, surname, patronymic, kab, login, password) values ('" + name + "', '" + surname + "', '" + patronymic + "', " + kab + ", '" + login + "', '" + pass + "')";
         this.getJdbcTemplate().execute(sqlAdd);
     }
-    public void deleteKab(Long id) throws SetException {
-        // Delete from DB account
+    public void deleteAccount(Long id) throws SetException {
+        // Delete account from DB
         String sqlAdd = "DELETE from storage_account where Id = " + id;
         this.getJdbcTemplate().execute(sqlAdd);
     }

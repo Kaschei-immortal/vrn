@@ -1,6 +1,7 @@
-package com.storage.vrn.model;
+package com.storage.vrn.setAcc;
 
-public class StorageAccountinfo {
+public class SetAccountForm {
+
     private Long id;
     private String name;
     private String surname;
@@ -9,8 +10,11 @@ public class StorageAccountinfo {
     private String login;
     private String pass;
 
-    public StorageAccountinfo(Long id, String name, String surname, String patronymic, String kab, String login, String pass) {
-        super();
+    public SetAccountForm() {
+
+    }
+
+    public SetAccountForm(Long id, String name, String surname, String patronymic, String kab, String login, String pass) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -27,9 +31,7 @@ public class StorageAccountinfo {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
     public void setName(String name) {
         this.name = name;
     }
@@ -55,9 +57,18 @@ public class StorageAccountinfo {
         this.kab = kab;
     }
 
-    public String getLogin() { return login; }
-    public  void setLogin(String login) { this.login = login; }
+    public String getLogin() {
+        return login;
+    }
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
-    public String getPass() { return pass; }
-    public void setPass(String pass) { this.pass = pass; }
+    public String getPass() {
+        return pass;
+    }
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
 }

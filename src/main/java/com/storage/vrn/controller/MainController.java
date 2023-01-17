@@ -1,20 +1,12 @@
 package com.storage.vrn.controller;
 
 import java.util.List;
-
 import com.storage.vrn.dao.StorageAccountDAO;
 import com.storage.vrn.dao.StorageComputerDAO;
-import com.storage.vrn.dao.StorageDAO;
 import com.storage.vrn.exception.SetException;
-import com.storage.vrn.getId.GetIdForm;
 import com.storage.vrn.model.StorageComputerinfo;
-import com.storage.vrn.model.StorageInfo;
-import com.storage.vrn.setInventoryNumber.SetInventoryForm;
-import com.storage.vrn.setKab.AddKabForm;
-import com.storage.vrn.setKab.SetKabForm;
-import com.storage.vrn.setPass.SetPassForm;
+import com.storage.vrn.setAcc.SetAccountForm;
 import com.storage.vrn.model.StorageAccountinfo;
-import com.storage.vrn.setStation.AddStationForm;
 import com.storage.vrn.setStation.SetStationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,100 +17,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RestController
 public class MainController {
 
-    Long ida = 1L;
-    Long ids = 1L;
-
-    @Autowired
-    private StorageDAO storageDAO;
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<StorageInfo> showStorage() {
-        List<StorageInfo> list = storageDAO.getStorage();
-        return list;
-    }
-
     @Autowired
     private StorageAccountDAO storageAccountDAO;
 
-    @RequestMapping(value = "/acc", method = RequestMethod.GET)
+    @RequestMapping(value = "/accounts", method = RequestMethod.GET)
     public List<StorageAccountinfo> showStorageAccounts() {
         List<StorageAccountinfo> list = storageAccountDAO.getStorageAccounts();
         return list;
     }
 
-    @RequestMapping(value = "/acc", method = RequestMethod.PUT)
-    public void processGetId(@RequestBody GetIdForm getIdForm) {
+    @RequestMapping(value = "/setAccount", method = RequestMethod.PUT)
+    public void processSetAccount(@RequestBody SetAccountForm setAccountForm) {
 
-        System.out.println("Get Id::" + getIdForm.getId());
-        this.ida = getIdForm.getId();
-
-    }
-
-    @RequestMapping(value = "/setName", method = RequestMethod.GET)
-    public SetKabForm viewNamePage() {
-        StorageAccountinfo s = storageAccountDAO.findStorageAccount(this.ida);
-        SetKabForm form = new SetKabForm(s.getId(), s.getName());
-        return form;
-    }
-
-    @RequestMapping(value = "/setName", method = RequestMethod.PUT)
-    public void processSetName(@RequestBody SetKabForm setKabForm) {
-
-        System.out.println("Set Name::" + setKabForm.getName());
+        System.out.println("Set Name::" + setAccountForm.getName());
 
         try {
-            storageAccountDAO.editName(setKabForm.getAccountId(),setKabForm.getName());
+            storageAccountDAO.editAccount(setAccountForm.getId(),setAccountForm.getName(), setAccountForm.getSurname(), setAccountForm.getPatronymic(), setAccountForm.getKab(), setAccountForm.getLogin(), setAccountForm.getPass());
         } catch (SetException e) {
             throw new RuntimeException("что-то пошло не так");
         }
     }
 
-    @RequestMapping(value = "/setKab", method = RequestMethod.GET)
-    public SetKabForm viewKabPage() {
-        StorageAccountinfo s = storageAccountDAO.findStorageAccount(this.ida);
-        SetKabForm form = new SetKabForm(s.getId(), s.getKab());
-        return form;
-    }
+    @RequestMapping(value = "/addAccount", method = RequestMethod.PUT)
+    public void processAddAccount(@RequestBody SetAccountForm setAccountForm) {
 
-    @RequestMapping(value = "/setKab", method = RequestMethod.PUT)
-    public void processSetKab(@RequestBody SetKabForm setKabForm) {
-
-        System.out.println("Set Kab::" + setKabForm.getKab());
-
+        System.out.println("Set New Name::" + setAccountForm.getName());
+        System.out.println("Set New Login::" + setAccountForm.getLogin());
         try {
-            storageAccountDAO.editKab(setKabForm.getAccountId(),setKabForm.getKab());
-        } catch (SetException e) {
-            throw new RuntimeException("что-то пошло не так");
-        }
-    }
-
-    @RequestMapping(value = "/setPass", method = RequestMethod.GET)
-    public SetPassForm viewPassPage() {
-        StorageAccountinfo s = storageAccountDAO.findStorageAccount(this.ida);
-
-        return new SetPassForm(s.getId(), s.getLogin(), s.getPass());
-    }
-
-    @RequestMapping(value = "/setPass", method = RequestMethod.PUT)
-    public void processSetPass(@RequestBody SetPassForm setPassForm) {
-
-        System.out.println("Set Login::" + setPassForm.getLogin());
-        System.out.println("Set Pass::" + setPassForm.getPass());
-
-        try {
-            storageAccountDAO.editPass(setPassForm.getAccountId(),setPassForm.getLogin(),setPassForm.getPass());
-        } catch (SetException e) {
-            throw new RuntimeException("что-то пошло не так");
-        }
-    }
-
-    @RequestMapping(value = "/addKab", method = RequestMethod.PUT)
-    public void processAddKab(@RequestBody AddKabForm addKabForm) {
-
-        System.out.println("Set New Name::" + addKabForm.getName());
-        System.out.println("Set New Login::" + addKabForm.getLogin());
-        try {
-            storageAccountDAO.addAccount(addKabForm.getName(), addKabForm.getKab(), addKabForm.getLogin(), addKabForm.getPass());
+            storageAccountDAO.addAccount(setAccountForm.getName(), setAccountForm.getSurname(), setAccountForm.getPatronymic(), setAccountForm.getKab(), setAccountForm.getLogin(), setAccountForm.getPass());
         } catch (SetException e) {
             throw new RuntimeException("что-то пошло не так");
         }
@@ -126,12 +52,12 @@ public class MainController {
     }
 
     @RequestMapping(value = "/delAccount", method = RequestMethod.PUT)
-    public void processSDelAccount(@RequestBody SetKabForm setKabForm) {
+    public void processDelAccount(@RequestBody SetAccountForm setAccountForm) {
 
-        System.out.println("Delete Kab::" + setKabForm.getAccountId());
+        System.out.println("Delete Id::" + setAccountForm.getId());
 
         try {
-            storageAccountDAO.deleteKab(setKabForm.getAccountId());
+            storageAccountDAO.deleteAccount(setAccountForm.getId());
         } catch (SetException e) {
             throw new RuntimeException("что-то пошло не так");
         }
@@ -140,68 +66,33 @@ public class MainController {
     @Autowired
     private StorageComputerDAO storageComputerDAO;
 
-    @RequestMapping(value = "/Station", method = RequestMethod.GET)
+    @RequestMapping(value = "/station", method = RequestMethod.GET)
     public List<StorageComputerinfo> showStorageStation() {
         List<StorageComputerinfo> list = storageComputerDAO.getStorageComputer();
         return list;
     }
 
-    @RequestMapping(value = "/Station", method = RequestMethod.PUT)
-    public void processGetIdStation(@RequestBody GetIdForm getIdForm) {
-
-        System.out.println("Get Id Station::" + getIdForm.getId());
-
-        this.ids = getIdForm.getId();
-    }
-
-    @RequestMapping(value = "/setStation", method = RequestMethod.GET)
-    public SetStationForm viewStationPage() {
-        StorageComputerinfo s = storageComputerDAO.findStorageComputer(this.ids);
-        SetStationForm form = new SetStationForm(s.getId(), s.getIdacc());
-        return form;
-    }
-
     @RequestMapping(value = "/setStation", method = RequestMethod.PUT)
-    public void processSetStation(@RequestBody SetStationForm setStationForm) {
+    public void processSetInventory(@RequestBody SetStationForm setStationForm) {
 
-        System.out.println("Set Station on::" + setStationForm.getIdAccount());
-
-        try {
-            storageComputerDAO.editId(setStationForm.getStationId(),setStationForm.getIdAccount());
-        } catch (SetException e) {
-            throw new RuntimeException("что-то пошло не так");
-        }
-    }
-
-    @RequestMapping(value = "/setInventoryNumber", method = RequestMethod.GET)
-    public SetInventoryForm viewInventoryPage() {
-        StorageComputerinfo s = storageComputerDAO.findStorageComputer(this.ids);
-        return new SetInventoryForm(s.getId(), s.getComputer(), s.getMonitor(), s.getPrinter(), s.getMfp(), s.getUps());
-    }
-
-    @RequestMapping(value = "/setInventoryNumber", method = RequestMethod.PUT)
-    public void processSetInventory(@RequestBody SetInventoryForm setInventoryForm) {
-
-        System.out.println("Set Comp::" + setInventoryForm.getComputer());
-        System.out.println("Set Mon::" + setInventoryForm.getMonitor());
-        System.out.println("Set Print::" + setInventoryForm.getPrinter());
-        System.out.println("Set MFP::" + setInventoryForm.getMfp());
-        System.out.println("Set UPS::" + setInventoryForm.getUps());
+        System.out.println("Set Comp::" + setStationForm.getComputer());
+        System.out.println("Set Mon::" + setStationForm.getMonitor());
+        System.out.println("Set Print::" + setStationForm.getPrinter());
+        System.out.println("Set UPS::" + setStationForm.getUps());
 
         try {
-            storageComputerDAO.editInfo(setInventoryForm.getStationId(), setInventoryForm.getComputer(), setInventoryForm.getMonitor(), setInventoryForm.getPrinter(), setInventoryForm.getMfp(), setInventoryForm.getUps());
+            storageComputerDAO.setStation(setStationForm.getId(), setStationForm.getComputer(), setStationForm.getMonitor(), setStationForm.getPrinter(), setStationForm.getUps());
         } catch (SetException e) {
             throw new RuntimeException("что-то пошло не так");
         }
     }
 
     @RequestMapping(value = "/addStation", method = RequestMethod.PUT)
-    public void processAddStation(@RequestBody AddStationForm addStationForm) {
+    public void processAddStation(@RequestBody SetStationForm addStationForm) {
 
         System.out.println("Set New Computer::" + addStationForm.getComputer());
-        System.out.println("Set New Account::" + addStationForm.getIdAccount());
         try {
-            storageComputerDAO.addStation(addStationForm.getComputer(), addStationForm.getMonitor(), addStationForm.getPrinter(), addStationForm.getMfp(), addStationForm.getUps(), addStationForm.getIdAccount());
+            storageComputerDAO.addStation(addStationForm.getComputer(), addStationForm.getMonitor(), addStationForm.getPrinter(), addStationForm.getUps());
         } catch (SetException e) {
             throw new RuntimeException("что-то пошло не так");
         }
@@ -211,10 +102,10 @@ public class MainController {
     @RequestMapping(value = "/delStation", method = RequestMethod.PUT)
     public void processSDelStation(@RequestBody SetStationForm setStationForm) {
 
-        System.out.println("Delete Station::" + setStationForm.getStationId());
+        System.out.println("Delete Station::" + setStationForm.getId());
 
         try {
-            storageComputerDAO.deleteStation(setStationForm.getStationId());
+            storageComputerDAO.deleteStation(setStationForm.getId());
         } catch (SetException e) {
             throw new RuntimeException("что-то пошло не так");
         }

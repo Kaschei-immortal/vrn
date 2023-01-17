@@ -1,33 +1,15 @@
-/*package com.storage.vrn;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
-public class VrnApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(VrnApplication.class, args);
-	}
-
-
-}*/
-
 package com.storage.vrn;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Metamodel;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import javax.persistence.metamodel.EntityType;
-
-import java.util.Map;
-
+import org.hibernate.query.Query;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import javax.persistence.metamodel.EntityType;
+
 @SpringBootApplication
 public class VrnApplication {
     private static final SessionFactory ourSessionFactory;
@@ -47,7 +29,7 @@ public class VrnApplication {
         return ourSessionFactory.openSession();
     }
 
-    public static void main(final String[] args) throws Exception {
+    public static void main(final String[] args) {
         final Session session = getSession();
         try {
             System.out.println("querying all the managed entities...");

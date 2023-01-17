@@ -2,30 +2,52 @@ package com.storage.vrn.setStation;
 
 public class SetStationForm {
 
-    private Long stationId;
-    private Long idAccount;
+    private Long id;
+    private String computer;
+    private String monitor;
+    private String printer;
+    private String ups;
 
-    public SetStationForm() {
-
+    public SetStationForm(Long id, String computer, String monitor, String printer, String ups) {
+        this.id = id;
+        this.computer = computer;
+        this.monitor = monitor;
+        this.printer = printer;
+        this.ups = ups;
     }
 
-    public SetStationForm(Long stationId, Long idAccount) {
-        this.stationId = stationId;
-        this.idAccount = idAccount;
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long getStationId() {
-        return stationId;
+    public String getComputer() {
+        return computer;
     }
-    public void setStationId(Long stationId) {
-        this.stationId = stationId;
-    }
-
-    public Long getIdAccount() {
-        return idAccount;
-    }
-    public void setIdAccount(Long idAccount) {
-        this.idAccount = idAccount;
+    public void setComputer(String computer) {
+        this.computer = computer;
     }
 
+    public String getMonitor() {
+        return monitor;
+    }
+    public void setMonitor(String monitor) {
+        this.monitor = monitor;
+    }
+
+    public String getPrinter() {
+        return printer;
+    }
+    public void setPrinter(String printer) {
+        this.printer = printer;
+    }
+
+    public String getUps() {
+        return ups;
+    }
+    public void setUps(String ups) {
+        this.ups = ups;
+    }
 }
