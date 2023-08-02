@@ -23,13 +23,13 @@ import com.storage.vrn.repository.StorageRepository;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/")
 public class StorageController {
 
     @Autowired
     StorageRepository storageRepository;
 
-    @GetMapping("/accounts")
+    @GetMapping("/")
     public ResponseEntity<List<StorageAccountEntity>> getAllStorageAccountEntity(@RequestParam(required = false) String name) {
         try {
             List<StorageAccountEntity> accounts = new ArrayList<StorageAccountEntity>();
@@ -60,7 +60,7 @@ public class StorageController {
         }
     }
 
-    @PostMapping("/accounts")
+    @PostMapping("/accounts/add")
     public ResponseEntity<StorageAccountEntity> createAccount(@RequestBody StorageAccountEntity storageAccountEntity) {
         try {
             StorageAccountEntity _storageAccountEntity = storageRepository
@@ -112,7 +112,7 @@ public class StorageController {
     }
 
     @GetMapping("/accounts/kab")
-    public ResponseEntity<List<StorageAccountEntity>> findByKab(String kab) {
+    public ResponseEntity<List<StorageAccountEntity>> findAccountByKab(String kab) {
         try {
             List<StorageAccountEntity> accounts = storageRepository.findByKab(kab);
 

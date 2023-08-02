@@ -1,0 +1,45 @@
+<body xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:switch="${accounts}">
+    <div class="row">
+        <div>
+            <h2 th:case="null">No accounts.</h2>
+            <div th:case="*">
+                <h2>Accounts</h2>
+                <table border="1">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Patronymic</th>
+                        <th>Kab</th>
+                        <th>Login</th>
+                        <th>Password</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="accounts : ${accounts}">
+                        <td th:text="${accounts.name}"></td>
+                        <td th:text="${accounts.surname}"></td>
+                        <td th:text="${accounts.patronymic}"></td>
+                        <td th:text="${accounts.kab}"></td>
+                        <td th:text="${accounts.login}"></td>
+                        <td th:text="${accounts.password}"></td>
+                        <td>
+                            <a th:href="@{/edit/{id}(id=${accounts.id})}">EDIT</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/delete/{id}(id=${accounts.id})}">DELETE</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                <a href="/accounts/add">Add account</a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>

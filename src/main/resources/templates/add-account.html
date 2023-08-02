@@ -1,0 +1,48 @@
+<body xmlns:th="http://www.w3.org/1999/xhtml">
+<div>
+  <h2>New account</h2>
+  <div>
+    <div>
+      <form action="#" th:action="@{/accounts/add}" th:object="${storageAccountEntity}" method="post">
+        <div class="row">
+          <div >
+            <label for="name">Name</label>
+            <input type="text" th:field="*{name}" id="name" placeholder="Name">
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></span>
+          </div>
+          <div >
+            <label for="surname">Surname</label>
+            <input type="text" th:field="*{surname}" id="surname" placeholder="Surname">
+            <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" ></span>
+          </div>
+          <div >
+            <label for="email">Patronymic</label>
+            <input type="text" th:field="*{patronymic}" id="patronymic" placeholder="Patronymic">
+            <span th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}" ></span>
+          </div>
+          <div >
+            <label for="email">Kab</label>
+            <input type="text" th:field="*{kab}" id="kab" placeholder="Kab">
+            <span th:if="${#fields.hasErrors('kab')}" th:errors="*{kab}" ></span>
+          </div>
+          <div >
+            <label for="email">Login</label>
+            <input type="text" th:field="*{login}" id="login" placeholder="Login">
+            <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}" ></span>
+          </div>
+          <div >
+            <label for="email">Password</label>
+            <input type="text" th:field="*{email}" id="email" placeholder="Password">
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></span>
+          </div>
+        </div>
+        <div class="row">
+          <div >
+            <input type="submit" value="Add account">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
